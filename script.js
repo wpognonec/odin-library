@@ -1,5 +1,5 @@
 const myLibrary = []
-const bookList = document.querySelector(".book-list")
+const bookList = document.querySelector("#bookList")
 const dialog = document.querySelector("#addBookDialog")
 
 function Book(title, author, pages, read = false) {
@@ -21,32 +21,39 @@ function addBookToLibrary(title, author, pages, read) {
   myLibrary.push(newBook)
 }
 
-addBookToLibrary("Project Hail Mary", "Andy Weir", 476, true)
-addBookToLibrary("Dark Matter", "Blake Crouch", 342, true)
-
 function displayBooks() {
+
+  // Delete the book list
   bookList.replaceChildren()
+  
   for (const book of myLibrary) {
+    // Create elements
     const bookDiv = document.createElement("div")
     const delButton = document.createElement("button")
     const readButton = document.createElement("button")
+
+    // Set element properties
     readButton.textContent = "Read"
     delButton.textContent = "Del"
+    bookDiv.textContent = book.info()
+    bookDiv.setAttribute("data-id", myLibrary.indexOf(book))
+
+    // Add elements to the DOM
+    bookDiv.appendChild(readButton)
+    bookDiv.appendChild(delButton)
+    bookList.appendChild(bookDiv)
+
+    // Add event listeners to del and read buttons
     delButton.addEventListener("click", (e) => {
-      let bookId = Number(e.target.parentElement.attributes["data-id"].value)
+      const bookId = Number(e.target.parentElement.attributes["data-id"].value)
       myLibrary.splice(bookId, 1)
       displayBooks()
     })
     readButton.addEventListener("click", (e) => {
-      let bookId = Number(e.target.parentElement.attributes["data-id"].value)
+      const bookId = Number(e.target.parentElement.attributes["data-id"].value)
       myLibrary[bookId].readToggle()
       displayBooks()
     })
-    bookDiv.textContent = book.info()
-    bookDiv.setAttribute("data-id", myLibrary.indexOf(book))
-    bookDiv.appendChild(readButton)
-    bookDiv.appendChild(delButton)
-    bookList.appendChild(bookDiv)
   }
 }
 
@@ -60,5 +67,10 @@ dialog.addEventListener("submit", (e) => {
   addBookToLibrary(data.title, data.author, Number(data.pages), Boolean(data.read))
   displayBooks()
 })
+
+addBookToLibrary("Project Hail Mary", "Andy Weir", 476, true)
+addBookToLibrary("Dark Matter", "Blake Crouch", 342, true)
+addBookToLibrary("Wool Omnibus", "Hugh Howey", 509, true)
+addBookToLibrary("Shift", "Hugh Howey", 579, true)
 
 displayBooks()
