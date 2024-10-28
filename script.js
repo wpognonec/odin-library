@@ -12,6 +12,10 @@ function Book(title, author, pages, read = false) {
   }
 }
 
+Book.prototype.readToggle = function () {
+  this.read = !this.read
+}
+
 function addBookToLibrary(title, author, pages, read) {
   const newBook = new Book(title, author, pages, read)
   myLibrary.push(newBook)
@@ -25,14 +29,22 @@ function displayBooks() {
   for (const book of myLibrary) {
     const bookDiv = document.createElement("div")
     const delButton = document.createElement("button")
+    const readButton = document.createElement("button")
+    readButton.textContent = "Read"
     delButton.textContent = "Del"
     delButton.addEventListener("click", (e) => {
       let bookId = Number(e.target.parentElement.attributes["data-id"].value)
       myLibrary.splice(bookId, 1)
       displayBooks()
     })
+    readButton.addEventListener("click", (e) => {
+      let bookId = Number(e.target.parentElement.attributes["data-id"].value)
+      myLibrary[bookId].readToggle()
+      displayBooks()
+    })
     bookDiv.textContent = book.info()
     bookDiv.setAttribute("data-id", myLibrary.indexOf(book))
+    bookDiv.appendChild(readButton)
     bookDiv.appendChild(delButton)
     bookList.appendChild(bookDiv)
   }
