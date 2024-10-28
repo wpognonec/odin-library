@@ -1,1 +1,1 @@
-# odin-library
+Library project in HTML, CSS and JS
