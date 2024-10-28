@@ -26,7 +26,13 @@ function displayBooks() {
     const bookDiv = document.createElement("div")
     const delButton = document.createElement("button")
     delButton.textContent = "Del"
+    delButton.addEventListener("click", (e) => {
+      let bookId = Number(e.target.parentElement.attributes["data-id"].value)
+      myLibrary.splice(bookId, 1)
+      displayBooks()
+    })
     bookDiv.textContent = book.info()
+    bookDiv.setAttribute("data-id", myLibrary.indexOf(book))
     bookDiv.appendChild(delButton)
     bookList.appendChild(bookDiv)
   }
@@ -38,7 +44,6 @@ function showDialog() {
 
 dialog.addEventListener("submit", (e) => {
   let data = Object.fromEntries(new FormData(e.target))
-  console.log(data);
   e.target.reset()
   addBookToLibrary(data.title, data.author, Number(data.pages), Boolean(data.read))
   displayBooks()
