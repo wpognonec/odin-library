@@ -8,8 +8,12 @@
   <script src="script.js" defer></script>
 </head>
 <body>
-  <div id="bookList"></div>
-  <button onclick="showDialog()">Add Book</button>
+  <div class="wrapper">
+    <h1>Book List</h1>
+    <div id="bookList"></div>
+    <button onclick="showDialog()">Add Book</button>
+  </div>
+  
   <dialog id="addBookDialog">
     <form method="dialog">
       <label for="title">Title<input type="text" id="title" name="title" required></label>

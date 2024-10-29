@@ -25,32 +25,37 @@ function displayBooks() {
 
   // Delete the book list
   bookList.replaceChildren()
-  
+
   for (const book of myLibrary) {
     // Create elements
     const bookDiv = document.createElement("div")
-    const delButton = document.createElement("button")
-    const readButton = document.createElement("button")
+    const bookInfo = document.createElement("div")
+    const iconDiv = document.createElement("div")
+    const delButton = document.createElement("img")
+    const readButton = document.createElement("img")
 
     // Set element properties
-    readButton.textContent = "Read"
-    delButton.textContent = "Del"
-    bookDiv.textContent = book.info()
+    delButton.src = "images/delete.svg"
+    readButton.src = "images/check.svg"
+    bookInfo.textContent = book.info()
+    bookInfo.className = "bookInfo"
     bookDiv.setAttribute("data-id", myLibrary.indexOf(book))
 
     // Add elements to the DOM
-    bookDiv.appendChild(readButton)
-    bookDiv.appendChild(delButton)
+    iconDiv.appendChild(readButton)
+    iconDiv.appendChild(delButton)
+    bookDiv.appendChild(bookInfo)
+    bookDiv.appendChild(iconDiv)
     bookList.appendChild(bookDiv)
 
     // Add event listeners to del and read buttons
     delButton.addEventListener("click", (e) => {
-      const bookId = Number(e.target.parentElement.attributes["data-id"].value)
+      const bookId = Number(e.target.parentElement.parentElement.attributes["data-id"].value)
       myLibrary.splice(bookId, 1)
       displayBooks()
     })
     readButton.addEventListener("click", (e) => {
-      const bookId = Number(e.target.parentElement.attributes["data-id"].value)
+      const bookId = Number(e.target.parentElement.parentElement.attributes["data-id"].value)
       myLibrary[bookId].readToggle()
       displayBooks()
     })

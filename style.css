@@ -2,6 +2,7 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 form {
@@ -28,4 +29,17 @@ dialog {
 
 input, select {
   height: 25px;
+}
+
+.wrapper {
+  width: 500px;
+  margin: auto;
+  margin-top: 20px;
+  text-align: center;
+}
+
+#bookList>div {
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
 }
