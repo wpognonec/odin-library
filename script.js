@@ -22,9 +22,9 @@ class Book {
     this.author = author
     this.pages = pages
     this.read = read
-    this.info = function() {
-      return `${this.title} by ${this.author}, ${this.pages} pages, ${this.read ? "read" : "not read"}`;
-    }
+  }
+  info() {
+    return `${this.title} by ${this.author}, ${this.pages} pages, ${this.read ? "read" : "not read"}`;
   }
   readToggle() {
     this.read = !this.read
