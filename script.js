@@ -24,7 +24,9 @@ class Book {
     this.read = read
   }
   info() {
-    return `${this.title} by ${this.author}, ${this.pages} pages, ${this.read ? "read" : "not read"}`;
+    return `${this.title} by ${this.author}, ${this.pages} pages, ${
+      this.read ? "read" : "not read"
+    }`
   }
   readToggle() {
     this.read = !this.read
@@ -36,7 +38,6 @@ const bookList = document.querySelector("#bookList")
 const dialog = document.querySelector("#addBookDialog")
 
 function displayBooks() {
-
   // Delete the book list
   bookList.replaceChildren()
   const books = myLibrary.getAllBooks()
@@ -64,12 +65,16 @@ function displayBooks() {
 
     // Add event listeners to del and read buttons
     delButton.addEventListener("click", (e) => {
-      const bookId = Number(e.target.parentElement.parentElement.attributes["data-id"].value)
+      const bookId = Number(
+        e.target.parentElement.parentElement.attributes["data-id"].value
+      )
       myLibrary.removeBook(bookId)
       displayBooks()
     })
     readButton.addEventListener("click", (e) => {
-      const bookId = Number(e.target.parentElement.parentElement.attributes["data-id"].value)
+      const bookId = Number(
+        e.target.parentElement.parentElement.attributes["data-id"].value
+      )
       myLibrary.getBook(bookId).readToggle()
       displayBooks()
     })
@@ -83,7 +88,12 @@ function showDialog() {
 dialog.addEventListener("submit", (e) => {
   let data = Object.fromEntries(new FormData(e.target))
   e.target.reset()
-  myLibrary.addBook(data.title, data.author, Number(data.pages), Boolean(data.read))
+  myLibrary.addBook(
+    data.title,
+    data.author,
+    Number(data.pages),
+    Boolean(data.read)
+  )
   // addBookToLibrary(data.title, data.author, Number(data.pages), Boolean(data.read))
   displayBooks()
 })
